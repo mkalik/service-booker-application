@@ -1,0 +1,5 @@
+final_project.txt
+node_modules/
+*.env
+package-lock.json
+
