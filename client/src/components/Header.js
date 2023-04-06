@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
+import logo from "../assets/favicon.png"
 
 import Auth from "../utils/auth";
 
@@ -14,6 +15,11 @@ const Header = () => {
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
+            <img
+            src={logo}
+            width={"30"}
+            height={"30"}
+            />
             The Service Booker
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar" />
