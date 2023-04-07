@@ -3,7 +3,7 @@ const typeDefs = gql`
     type User{
         _id:ID
         name: String
-        tickets:[Tickets]
+        tickets:[Ticket]
     }
     type Ticket{
         _id: ID
