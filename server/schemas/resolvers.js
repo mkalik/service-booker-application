@@ -1,7 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-
 const { Ticket, User } = require('../models');
+
 const resolvers = {
     Query: {},
     Mutation: {
@@ -21,6 +21,12 @@ const resolvers = {
             }
             const token = signToken(user);
             return { token, user };
+          },
+          addTicket: async(parent, {ticketTitle}) => {
+            const ticket = await Ticket.create({
+              ticketTitle
+            });
+            return ticket
           },
     },
 };
