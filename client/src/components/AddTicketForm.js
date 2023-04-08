@@ -38,7 +38,7 @@ const AddTicketForm = ({profileId}) => {
       });
       console.log(data)
       if (data) {
-        window.location.assign('/profile');
+        window.location.assign('/me');
       }
     } catch (e) {
       console.error(e);

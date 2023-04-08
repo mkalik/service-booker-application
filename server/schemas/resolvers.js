@@ -5,9 +5,15 @@ const { Ticket, User } = require('../models');
 const resolvers = {
     Query: {
         me: async (parent, args, context) => {
-            const user = await User.findOne({ _id: context.user._id });
-            return user;
+            console.log(context.user)
+            if (context.user) {
+              return User.findOne({ _id: context.user._id }).populate('tickets');
+            }
+            throw new AuthenticationError('You need to be logged in!');
         },
+        user: async (parent, { profileId }) => {
+            return User.findOne({ _id: profileId }).populate('tickets');
+          },
     },
     Mutation: {
         addUser: async (parent, { username, email, password }) => {

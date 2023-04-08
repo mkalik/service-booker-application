@@ -23,7 +23,8 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    getTickets: [Ticket]
+    user(profileId: ID!): User
+    tickets(username: String): [Ticket]
     getSingleTicket(id: String): Ticket
     #if we get to employee portion we can add something to query all users
   }
