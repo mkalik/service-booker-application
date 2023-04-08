@@ -29,27 +29,41 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        addTicket: async (parent, { infoTicket }, context) => {
-            // const newparam = {};
-            // for (let [key,val] in Object.entries(infoTicket)) {
-            //     if(val != null){
-            //         newparam[key] = val;
-            //     }
-            //     }
-            const ticket = await Ticket.create({ infoTicket });
+        addTicket: async (
+            parent,
+            { ticketTitle, ticketContent, ticketBudget, ticketStatus },
+            context
+        ) => {
+            const ticket = await Ticket.create({
+                ticketTitle,
+                ticketContent,
+                ticketBudget,
+                ticketStatus,
+            });
             const user = await User.findOneAndUpdate(
                 { _id: context.user._id },
                 {
                     $addToSet: { tickets: ticket._id },
                 }
             );
-            return user;
+            return ticket;
         },
-        deleteTicket: async (parent, id, context) => {
-            const ticket = await Ticket.deleteOne({ _id: id });
+        deleteTicket: async (parent, info, context) => {
+            //this doesnt work yet
+            const ticket = await Ticket.deleteOne({ _id: info.id });
+            const user = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $pull: { tickets: { $in: [info.id] } } }
+            );
             return ticket;
         },
     },
 };
 
+// const newparam = {};
+// for (let [key,val] in Object.entries(infoTicket)) {
+//     if(val != null){
+//         newparam[key] = val;
+//     }
+//     }
 module.exports = resolvers;

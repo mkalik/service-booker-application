@@ -30,15 +30,19 @@ const typeDefs = gql`
         me: User
         getTickets: [Ticket]
         getSingleTicket(id: String): Ticket
-
         #if we get to employee portion we can add something to query all users
     }
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
-        addTicket(input: InfoTicket!): User
+        addTicket(
+            ticketTitle: String!
+            ticketContent: String!
+            ticketBudget: Float!
+            ticketStatus: Boolean!
+        ): Ticket
         #updateTicket(id: String!, input: InfoTicket): Ticket
-        deleteTicket(id: String!): Ticket
+        deleteTicket(id: String!): [Ticket]
     }
 `;
 
