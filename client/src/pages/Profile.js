@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { Container, CardColumns, Card, Button, Modal } from "react-bootstrap";
+import {
+  Container,
+  CardColumns,
+  Card,
+  Button,
+  Modal,
+  Tab,
+} from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { Navigate, useParams } from "react-router-dom";
 import { QUERY_ME } from "../utils/queries";
-import addTicketForm from "../components/AddTicketForm";
+import AddTicketForm from "../components/AddTicketForm";
 
 const Profile = () => {
   const [showModal, setShowModal] = useState(false);
@@ -21,7 +28,7 @@ const Profile = () => {
       <Modal size="lg" show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <addTicketForm handleModalClose={() => setShowModal(false)} />
+          <AddTicketForm handleModalClose={() => setShowModal(false)} />
         </Modal.Body>
       </Modal>
     </>
