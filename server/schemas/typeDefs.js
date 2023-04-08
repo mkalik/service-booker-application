@@ -1,29 +1,33 @@
 const { gql } = require('apollo-server-express');
 const typeDefs = gql`
-    type User{
+    type User {
         _id:ID
         username: String
         email: String
         password: String
-        tickets:[Ticket]
+        tickets: [Ticket]!
     }
-    type Ticket{
+    type Ticket {
         _id: ID
-        title: String
-        user:User
+        ticketTitle: String
+        ticketContent: String
+        ticketBudget: Float
+        ticketStatus: Boolean
+        ticketCreator: String
     }
     type Auth {
         token: ID!
         user: User
       }
 
-    type Query{
+    type Query {
         me:User
-        #if we get to employee portion we can add something to query all users
+        tickets(username: String): [Ticket]
     }
-    type Mutation{
+    type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
+        addTicket(ticketTitle: String!): Ticket
     }
 `;
 

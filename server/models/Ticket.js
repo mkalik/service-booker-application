@@ -1,33 +1,35 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const ticketSchema = new Schema({
     ticketTitle: {
         type: String,
-        required: 'Please enter what you need repaired:',
+        required: true,
         minLength: 1,
         maxLength: 50,
         trim: true,
     },
     ticketContent: {
         type: String,
-        required: 'Please enter a short description of your issue:',
+        // required: true,
         minLength: 1,
         maxLength: 200,
     },
     ticketBudget: {
         type: Number,
-        required: true,
+        // required: true,
     },
     ticketStatus: {
         type: Boolean,
-        required: true,
+        // required: true,
     },
     ticketCreator: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
+        // required: true,
     },
 });
 
-const Ticket = model('Ticket', ticketSchema);
+const Ticket = mongoose.model('Ticket', ticketSchema);
 
 module.exports = Ticket;
