@@ -1,11 +1,13 @@
 const { gql } = require('apollo-server-express');
 const typeDefs = gql`
     type User {
-        _id: ID
+
+        _id:ID
         username: String
         email: String
         password: String
-        tickets: [Ticket]
+        tickets: [Ticket]!
+
     }
     type Ticket {
         _id: ID
@@ -13,13 +15,9 @@ const typeDefs = gql`
         ticketContent: String
         ticketBudget: Float
         ticketStatus: Boolean
-        ticketCreator: User
-    }
-    input InfoTicket {
-        ticketTitle: String
-        ticketContent: String
-        ticketBudget: Float
-        ticketStatus: Boolean
+
+        ticketCreator: String
+
     }
     type Auth {
         token: ID!
@@ -27,14 +25,17 @@ const typeDefs = gql`
     }
 
     type Query {
+
         me: User
         getTickets: [Ticket]
         getSingleTicket(id: String): Ticket
         #if we get to employee portion we can add something to query all users
+
     }
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
+
         addTicket(
             ticketTitle: String!
             ticketContent: String!
@@ -43,6 +44,7 @@ const typeDefs = gql`
         ): Ticket
         #updateTicket(id: String!, input: InfoTicket): Ticket
         deleteTicket(id: String!): [Ticket]
+
     }
 `;
 
