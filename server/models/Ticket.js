@@ -12,7 +12,9 @@ const ticketSchema = new Schema({
     },
     ticketContent: {
         type: String,
-        // required: true,
+
+        required: true,
+
         minLength: 1,
         maxLength: 200,
     },
