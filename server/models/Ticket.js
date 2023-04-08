@@ -19,7 +19,7 @@ const ticketSchema = new Schema({
         maxLength: 200,
     },
     ticketBudget: {
-        type: Number,
+        type: String,
         // required: true,
     },
     ticketStatus: {

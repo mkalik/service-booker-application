@@ -23,3 +23,13 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const ADD_TICKET = gql`
+  mutation addTicket($ticketTitle: String!, $ticketContent: String!, $ticketBudget: String, $ticketStatus: Boolean!, $ticketCreator: String!) {
+    addTicket(ticketTitle: $ticketTitle, ticketContent: $ticketContent, ticketBudget: $ticketBudget, ticketStatus: $ticketStatus, ticketCreator: $ticketCreator) {
+      _id
+      ticketTitle
+      ticketContent
+    }
+  }
+`

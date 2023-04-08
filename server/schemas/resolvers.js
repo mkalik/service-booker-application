@@ -32,7 +32,7 @@ const resolvers = {
         },
         addTicket: async (
             parent,
-            { ticketTitle, ticketContent, ticketBudget, ticketStatus },
+            { ticketTitle, ticketContent, ticketBudget, ticketStatus, ticketCreator },
             context
         ) => {
             const ticket = await Ticket.create({
@@ -40,6 +40,7 @@ const resolvers = {
                 ticketContent,
                 ticketBudget,
                 ticketStatus,
+                ticketCreator,
             });
             const user = await User.findOneAndUpdate(
                 { _id: context.user._id },
