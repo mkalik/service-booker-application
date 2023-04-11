@@ -8,10 +8,10 @@ function UserTicketList(tickets) {
     //   "secondary"
     // }
     const [showDetails, setShowDetails] = useState(false);
-    const openDetails = (ticket) => {
-        const { _id, ticketTitle, ticketContent, ticketBudget, ticketStatus } =
-            ticket;
-        console.log('attempting to grab id', _id);
+    const openDetails = (event) => {
+        console.log(event.target);
+        // const { _id, ticketTitle, ticketContent, ticketBudget, ticketStatus } =
+        // ticket;
         // setData(ticket);
         setShowDetails(true);
     };
@@ -39,12 +39,13 @@ function UserTicketList(tickets) {
                     {tickets &&
                         tickets.tickets.map((ticket) => (
                             <Card
-                                ref={ticket}
                                 key={ticket._id}
                                 style={{ width: '18rem' }}
                                 bg={ticket.ticketStatus ? '' : 'secondary'}
                             >
-                                <Card.Header>{ticket.ticketTitle}</Card.Header>
+                                <Card.Header key={ticket.ticketTitle}>
+                                    {ticket.ticketTitle}
+                                </Card.Header>
                                 <Card.Body>
                                     {/* <Card.Title>{ticket.ticketTitle}</Card.Title> */}
                                     <Card.Text>
