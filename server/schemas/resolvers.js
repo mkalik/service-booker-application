@@ -65,6 +65,7 @@ const resolvers = {
             );
             return ticket;
         },
+        addComment: async (parent, info , context)=>{};
 
     },
 };
