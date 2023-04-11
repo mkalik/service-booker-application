@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import Auth from "../utils/auth";
-import addTicket from "../utils/mutations"
+import {ADD_TICKET} from "../utils/mutations"
+import { useMutation } from "@apollo/client";
 
 const AddTicketForm = ({profileId}) => {
   const [ticketFormData, setTicketFormData] = useState({
     ticketTitle: "",
     ticketContent: "",
     ticketBudget: "",
+    ticketStatus: true,
+    ticketCreator: Auth.getProfile().data._id
   });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+
+  const [addTicket, {error}] = useMutation(ADD_TICKET)
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -25,6 +30,19 @@ const AddTicketForm = ({profileId}) => {
       event.stopPropagation();
     }
     console.log(ticketFormData);
+    console.log(ticketFormData.ticketTitle)
+
+    try {
+      const {data} = await addTicket({
+        variables: {...ticketFormData}
+      });
+      console.log(data)
+      if (data) {
+        window.location.assign('/me');
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
   return (
     <>
@@ -70,7 +88,7 @@ const AddTicketForm = ({profileId}) => {
           <Form.Label htmlFor="ticketBudget">Budget</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Input a Budget for this repair"
+            placeholder="Input your budget for this repair"
             name="ticketBudget"
             onChange={handleInputChange}
             value={ticketFormData.ticketBudget}

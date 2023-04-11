@@ -27,7 +27,7 @@ const Header = () => {
             <Nav className="ml-auto">
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to="/profile">
+                  <Nav.Link as={Link} to="/me">
                     My Profile
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
