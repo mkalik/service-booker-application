@@ -14,14 +14,14 @@ const typeDefs = gql`
         ticketBudget: String
         ticketStatus: Boolean
         ticketCreator: String
-        ticketComment: [Comments]
+        #ticketComment: [Comments]
     }
-    type Comments {
-        _id: ID
-        ticketId: String!
-        username: String!
-        commentText: String!
-    }
+    #    type Comments {
+    #        _id: ID
+    #        ticketId: String!
+    #        username: String!
+    #        commentText: String!
+    #    }
     type Auth {
         token: ID!
         user: User

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert, FloatingLabel } from 'react-bootstrap';
+import { Form, Button, FloatingLabel } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { ADD_COMMENT } from '../utils/mutations';
 import Auth from '../utils/auth';
+
 const AddComment = (props) => {
     const username = Auth.getProfile().data.username;
     const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
@@ -26,16 +27,16 @@ const AddComment = (props) => {
 
     return (
         <Form onSubmit={addToTicket}>
-            <FloatingLabel label="comments">
-                <Form.Control
-                    as="textarea"
-                    placeholder="leave a comment"
-                    style={{ height: '30vh' }}
-                    onChange={handleComment}
-                    value={comment.CommentValue}
-                />
-                <Button type="submit">Click to add a Comment</Button>
-            </FloatingLabel>
+            {/* <FloatingLabel label="comments"> */}
+            <Form.Control
+                as="textarea"
+                placeholder="leave a comment"
+                style={{ height: '30vh' }}
+                onChange={handleComment}
+                value={comment.CommentValue}
+            />
+            <Button type="submit">Click to add a Comment</Button>
+            {/* </FloatingLabel> */}
         </Form>
     );
 };
