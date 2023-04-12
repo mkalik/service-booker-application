@@ -3,6 +3,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import Auth from "../utils/auth";
 import {ADD_TICKET} from "../utils/mutations"
 import { useMutation } from "@apollo/client";
+import { redirect } from "react-router-dom";
 
 const AddTicketForm = ({profileId}) => {
   const [ticketFormData, setTicketFormData] = useState({
@@ -14,7 +15,7 @@ const AddTicketForm = ({profileId}) => {
   });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-
+  const refresh = () => window.location.reload(true)
   const [addTicket, {error}] = useMutation(ADD_TICKET)
 
   const handleInputChange = (event) => {
@@ -38,7 +39,7 @@ const AddTicketForm = ({profileId}) => {
       });
       console.log(data)
       if (data) {
-        window.location.assign('/me');
+        refresh()
       }
     } catch (e) {
       console.error(e);
