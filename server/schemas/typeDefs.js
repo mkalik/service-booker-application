@@ -14,14 +14,14 @@ const typeDefs = gql`
         ticketBudget: String
         ticketStatus: Boolean
         ticketCreator: String
-        #ticketComment: [Comments]
+        ticketComments: [Comment]
     }
-    #    type Comments {
-    #        _id: ID
-    #        ticketId: String!
-    #        username: String!
-    #        commentText: String!
-    #    }
+    type Comment {
+        _id: ID
+        ticketId: String!
+        username: String
+        commentText: String!
+    }
     type Auth {
         token: ID!
         user: User
@@ -31,7 +31,7 @@ const typeDefs = gql`
         me: User
         user(profileId: ID!): User
         tickets(username: String): [Ticket]
-        getSingleTicket(id: String): Ticket
+        getSingleTicket(ticketId: String): Ticket
         #if we get to employee portion we can add something to query all users
     }
     type Mutation {
@@ -47,7 +47,12 @@ const typeDefs = gql`
             ticketCreator: String!
         ): Ticket
         #updateTicket(id: String!, input: InfoTicket): Ticket
-        deleteTicket(id: String!): [Ticket]
+        #deleteTicket(id: String!): [Ticket]
+        addComment(
+            ticketId: String!
+            username: String!
+            commentText: String!
+        ): Ticket
     }
 `;
 

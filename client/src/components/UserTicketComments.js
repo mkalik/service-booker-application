@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, FloatingLabel } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { ADD_COMMENT } from '../utils/mutations';
+import { GET_COMMENT } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const AddComment = ({ props }) => {
