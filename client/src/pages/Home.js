@@ -1,6 +1,6 @@
 import React from "react";
-import image1 from "../assets/IMG_1437.jpg";
-import car2 from '../assets/dhiva-krishna-YApS6TjKJ9c-unsplash.jpg'
+
+
 import background from "../assets/auto-1868726__480.jpg";
 
 const styles = {
@@ -37,9 +37,7 @@ const Home = () => {
           an account, request tickets, delete them and also allows employee  be able to send email 
           to the users.
       </p>
-      
-      <img src={image1}style={styles.imgStyles}></img>
-      <img src={car2}style={styles.imgStyles}></img>
+
 
 
      </div>
