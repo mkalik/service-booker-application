@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_COMMENT } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-const AddComment = (props) => {
+const AddComment = ({ props }) => {
     const username = Auth.getProfile().data.username;
     const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
     const [comment, setComment] = useState({

@@ -10,9 +10,21 @@ function UserTicketList(tickets) {
     const [showDetails, setShowDetails] = useState(false);
     const openDetails = (event) => {
         console.log(event.target);
-        // const { _id, ticketTitle, ticketContent, ticketBudget, ticketStatus } =
-        // ticket;
-        // setData(ticket);
+        const index = event.target.dataset.index;
+        console.log(index);
+        console.log(
+            'console logging ticket with index',
+            tickets.tickets[index]
+        );
+        const { _id, ticketTitle, ticketContent, ticketBudget, ticketStatus } =
+            tickets.tickets[index];
+        setData({
+            _id,
+            ticketTitle,
+            ticketContent,
+            ticketBudget,
+            ticketStatus,
+        });
         setShowDetails(true);
     };
     const hideDetails = () => setShowDetails(false);
@@ -37,7 +49,7 @@ function UserTicketList(tickets) {
             <Container>
                 <CardColumns>
                     {tickets &&
-                        tickets.tickets.map((ticket) => (
+                        tickets.tickets.map((ticket, index) => (
                             <Card
                                 key={ticket._id}
                                 style={{ width: '18rem' }}
@@ -55,6 +67,7 @@ function UserTicketList(tickets) {
                                         Budget: {ticket.ticketBudget}
                                     </Card.Text>
                                     <Button
+                                        data-index={index}
                                         variant="primary"
                                         onClick={openDetails}
                                     >
