@@ -47,7 +47,7 @@ export const ADD_TICKET = gql`
 `;
 
 export const ADD_COMMENT = gql`
-    mutation addComment(
+    mutation AddComment(
         $ticketId: String!
         $username: String!
         $commentText: String!
@@ -57,10 +57,12 @@ export const ADD_COMMENT = gql`
             username: $username
             commentText: $commentText
         ) {
-            _id
-            ticketId
-            username
-            commentText
+            ticketComments {
+                _id
+                ticketId
+                username
+                commentText
+            }
         }
     }
 `;

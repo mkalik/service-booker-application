@@ -39,6 +39,7 @@ export const GET_COMMENTS = gql`
     query getSingleTicket($ticketId: String!) {
         getSingleTicket(ticketId: $ticketId) {
             ticketComments {
+                _id
                 commentText
                 username
             }
