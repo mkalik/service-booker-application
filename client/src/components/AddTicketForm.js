@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import Auth from "../utils/auth";
@@ -22,15 +23,16 @@ const AddTicketForm = ({profileId}) => {
     setTicketFormData({ ...ticketFormData, [name]: value });
   };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    console.log(ticketFormData);
-    console.log(ticketFormData.ticketTitle)
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        console.log(ticketFormData);
+        console.log(ticketFormData.ticketTitle);
+
 
     try {
       const {data} = await addTicket({
@@ -107,6 +109,7 @@ const AddTicketForm = ({profileId}) => {
       </Form>
     </>
   );
+
 };
 
 export default AddTicketForm;

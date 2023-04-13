@@ -16,6 +16,10 @@ const resolvers = {
         user: async (parent, { profileId }) => {
             return User.findOne({ _id: profileId }).populate('tickets');
         },
+        getSingleTicket: async (parent, { ticketId }) => {
+            return Ticket.findOne({ _id: ticketId });
+            // return { ticket };
+        },
     },
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
@@ -56,26 +60,43 @@ const resolvers = {
                 ticketCreator,
             });
             const user = await User.findOneAndUpdate(
+                //this should be used
                 { _id: context.user._id },
+                // for testing purposes only!
+                // { username: ticketCreator },
                 {
                     $addToSet: { tickets: ticket._id },
                 }
             );
             return ticket;
         },
-        deleteTicket: async (parent, info, context) => {
-            //this doesnt work yet
-            const ticket = await Ticket.deleteOne({ _id: info.id });
-            const user = await User.findOneAndUpdate(
-                { _id: context.user._id },
-                { $pull: { tickets: { $in: [info.id] } } }
+        addComment: async (
+            parent,
+            { ticketId, commentText, username },
+            context
+        ) => {
+            const ticket = await Ticket.findOneAndUpdate(
+                { _id: ticketId },
+                {
+                    $addToSet: {
+                        ticketComments: { ticketId, username, commentText },
+                    },
+                }
             );
             return ticket;
         },
-        // addComment: async (parent, info, context) => {},
     },
 };
 
+//deleteTicket: async (parent, info, context) => {
+//    //this doesnt work yet
+//    const ticket = await Ticket.deleteOne({ _id: info.id });
+//    const user = await User.findOneAndUpdate(
+//        { _id: context.user._id },
+//        { $pull: { tickets: { $in: [info.id] } } }
+//    );
+//    return ticket;
+//},
 // const newparam = {};
 // for (let [key,val] in Object.entries(infoTicket)) {
 //     if(val != null){
