@@ -12,9 +12,7 @@ const ticketSchema = new Schema({
     },
     ticketContent: {
         type: String,
-
         required: true,
-
         minLength: 1,
         maxLength: 200,
     },
@@ -30,6 +28,24 @@ const ticketSchema = new Schema({
         type: String,
         // required: true,
     },
+
+    ticketComments: [
+        {
+            ticketId: {
+                type: String,
+            },
+            // isElevated:{
+            //     type: Boolean,
+            //     required:true
+            // },
+            username: {
+                type: String,
+            },
+            commentText: {
+                type: String,
+            },
+        },
+    ],
 });
 
 const Ticket = mongoose.model('Ticket', ticketSchema);

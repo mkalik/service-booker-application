@@ -13,6 +13,7 @@ const styles = {
     imgStyles: {
         height: 30,
         paddingInline: 20
+        
     }
 }
 
