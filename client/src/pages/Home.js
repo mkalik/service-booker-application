@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+
 
 
 import background from "../assets/auto-1868726__480.jpg";
@@ -10,12 +11,7 @@ const styles = {
     textAlign: 'center',
     padding: '15px',
   },
- pStyles: {
-  
-
-
-
-  },
+ pStyles: {},
   imgStyles:{
     padding: 20,
     height: 200,
