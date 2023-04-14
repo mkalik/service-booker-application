@@ -50,7 +50,7 @@ There will also be another link that will allow for them to create a new ticket 
 This ticket will be added to their profile page and they will have the opportunity to add comments as they please.
 # <a name='3'></a>
 ## 3.Credits:
-[mkalik](https://github.com/mkalik) | [jaugsbu2](https://github.com/jaugsbu2) | [will198735](https://github.com/will198735)
+[mkalik](https://github.com/mkalik) | [jaugsbu2](https://github.com/jaugsbu2) | [will198735](https://github.com/will198735) | [Beenarob](https://github.com/Beenarob)
 # <a name='4'></a>
 ## 4.License:
 https://opensource.org/licenses/MIT
