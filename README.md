@@ -22,7 +22,7 @@
 # <a name='desc'></a>
 ## 0.Description:
 
-A handy application that makes requesting of services a breeze. Simply create a profile, create a ticket, and youre good to go!\
+A handy application that makes requesting of services a breeze. Simply create a profile, create a ticket, and youre good to go!
 
 ![homepage](./images/homepage.png)
 ![ticketpage](./images/ticketpage.png)
@@ -37,9 +37,9 @@ With that all dependencies will be added and you should be good to go. ( This ap
 This application also follows a mern structure so having a local instance of mongoDB running is a neccesity for this applications local functionality.
 # <a name='2'></a>
 ## 2.Usage:
-Going to need to sign up with an email, username, and password. \
+Going to need to sign up with an email, username, and password.\
 After all  of this you will be brought to a page where you can create a ticket.\
-Simply click add a ticket, enter the info on  the ticket and submit it.\
+Simply click add a ticket, enter the info on  the ticket and submit it.
 
 User side:
 
