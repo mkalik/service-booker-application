@@ -4,12 +4,14 @@ import { useMutation } from "@apollo/client";
 
 import Auth from "../utils/auth";
 import { LOGIN_USER } from "../utils/mutations";
+import { useNavigate } from "react-router";
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [login, {error, data}] = useMutation(LOGIN_USER)
+  const [login, { error, data }] = useMutation(LOGIN_USER);
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -35,12 +37,12 @@ const LoginForm = () => {
       console.error(e);
       setShowAlert(true);
     }
-
     setUserFormData({
       username: "",
       email: "",
       password: "",
     });
+    navigate("/me");
   };
 
   return (
