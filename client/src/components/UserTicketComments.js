@@ -5,31 +5,36 @@ import { ADD_COMMENT } from '../utils/mutations';
 // import { GET_COMMENT } from '../utils/queries';
 import Auth from '../utils/auth';
 
-const AddComment = ({ props, tryComment }) => {
+const AddComment = ({ props, tryComment, refetch }) => {
     const username = Auth.getProfile().data.username;
     const [addComment, { error }] = useMutation(ADD_COMMENT);
-    const [comment, setComment] = useState({
-        commentValue: '',
-    });
+    const textComment = { commentValue: '' };
+    const [{ commentValue }, setComment] = useState(textComment);
     // console.log(username);
-    console.log(`props : ${props}`);
+    // console.log(`props : ${props}`);
 
-    console.log(tryComment);
+    // console.log(tryComment);
+    const clearComment = () => {
+        setComment({ ...textComment });
+    };
     const addToTicket = (event) => {
         event.preventDefault();
-        // console.log(comment);
+        event.target.reset();
         addComment({
             variables: {
                 ticketId: props,
                 username,
-                commentText: comment.commentValue,
+                commentText: commentValue,
             },
+        }).then(() => {
+            clearComment();
         });
-        setComment({ commentValue: '' });
     };
     const handleComment = (event) => {
-        const value = event.target.value;
-        setComment({ ...comment, commentValue: value });
+        event.preventDefault();
+        const { value } = event.target;
+        // console.log('name:', name, '\nvalue:', value);
+        setComment((prevComment) => ({ ...prevComment, commentValue: value }));
     };
 
     return (
@@ -40,13 +45,14 @@ const AddComment = ({ props, tryComment }) => {
                 placeholder="leave a comment"
                 style={{ height: '30vh' }}
                 onChange={handleComment}
-                value={comment.CommentValue}
+                value={commentValue}
                 // value={comment}
             />
             <Button
                 type="submit"
                 onClick={() => {
-                    tryComment(true);
+                    refetch();
+                    // tryComment(true);
                 }}
             >
                 Click to add a Comment

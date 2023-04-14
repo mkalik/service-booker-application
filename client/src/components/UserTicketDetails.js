@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import AddComment from './UserTicketComments.js';
 import TicketCommentList from './TicketCommentList.js';
@@ -13,15 +13,18 @@ const TicketDetails = ({ props }) => {
     const hideDetails = () => {
         setShowDetails(false);
     };
-    const { loading, error, data } = useQuery(GET_COMMENTS, {
+    const { loading, error, data, refetch } = useQuery(GET_COMMENTS, {
         variables: {
             ticketId: props._id,
         },
     });
-    const tryComment = (val) => {
-        console.log(val);
-        setComment(val);
-    };
+    // const tryComment = (val) => {
+    //     console.log(val);
+    //     setComment(val);
+    // };
+    // useEffect(() => {
+    //     refetch();
+    // }, [comment]);
     console.log('comment log', comment);
     console.log(loading);
     console.log(data);
@@ -44,7 +47,11 @@ const TicketDetails = ({ props }) => {
                 <TicketCommentList
                     props={data.getSingleTicket.ticketComments}
                 />
-                <AddComment props={props._id} tryComment={tryComment} />
+                <AddComment
+                    props={props._id}
+                    // tryComment={tryComment}
+                    refetch={refetch}
+                />
             </Modal.Body>
             <Modal.Footer></Modal.Footer>
         </div>
