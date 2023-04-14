@@ -2,30 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import AddComment from './UserTicketComments.js';
 import TicketCommentList from './TicketCommentList.js';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_COMMENTS } from '../utils/queries';
+import { TICKET_STATUS } from '../utils/mutations';
 // import { useMutation } from '@apollo/client';
 // import Auth from '../utils/auth';
 
 const TicketDetails = ({ props }) => {
     const [showDetails, setShowDetails] = useState(false);
-    const [comment, setComment] = useState(false);
+    // const [comment, setComment] = useState(false);
     const hideDetails = () => {
         setShowDetails(false);
     };
+    const [ticketStatus] = useMutation(TICKET_STATUS);
     const { loading, error, data, refetch } = useQuery(GET_COMMENTS, {
         variables: {
             ticketId: props._id,
         },
     });
-    // const tryComment = (val) => {
-    //     console.log(val);
-    //     setComment(val);
-    // };
-    // useEffect(() => {
-    //     refetch();
-    // }, [comment]);
-    console.log('comment log', comment);
+    const changeStatus = (ticketId, status) => {
+        ticketStatus({
+            variables: {
+                ticketId,
+                status,
+            },
+        }).then(refetch());
+    };
     console.log(loading);
     console.log(data);
     if (loading) {
@@ -42,7 +44,10 @@ const TicketDetails = ({ props }) => {
 
                 <ul style={{ 'listStyle': 'none' }}>
                     <li>Budget: {props.ticketBudget}</li>
-                    <li>Status: {props.ticketStatus ? 'open' : 'closed'}</li>
+                    <li>
+                        Status:{' '}
+                        {data.getSingleTicket.ticketStatus ? 'open' : 'closed'}
+                    </li>
                 </ul>
                 <TicketCommentList
                     props={data.getSingleTicket.ticketComments}
@@ -52,6 +57,16 @@ const TicketDetails = ({ props }) => {
                     // tryComment={tryComment}
                     refetch={refetch}
                 />
+                <Button
+                    onClick={() =>
+                        changeStatus(
+                            props._id,
+                            data.getSingleTicket.ticketStatus
+                        )
+                    }
+                >
+                    Click to toggle status
+                </Button>
             </Modal.Body>
             <Modal.Footer></Modal.Footer>
         </div>

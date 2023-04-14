@@ -10,35 +10,32 @@ const AddComment = ({ props, tryComment, refetch }) => {
     const [addComment, { error }] = useMutation(ADD_COMMENT);
     const textComment = { commentValue: '' };
     const [{ commentValue }, setComment] = useState(textComment);
-    // console.log(username);
-    // console.log(`props : ${props}`);
 
-    // console.log(tryComment);
     const clearComment = () => {
         setComment({ ...textComment });
     };
     const addToTicket = (event) => {
         event.preventDefault();
-        event.target.reset();
         addComment({
             variables: {
                 ticketId: props,
                 username,
                 commentText: commentValue,
             },
-        }).then(() => {
-            clearComment();
-        });
+        })
+            .then(() => {
+                clearComment();
+            })
+            .then(() => refetch());
     };
     const handleComment = (event) => {
         event.preventDefault();
         const { value } = event.target;
-        // console.log('name:', name, '\nvalue:', value);
-        setComment((prevComment) => ({ ...prevComment, commentValue: value }));
+        setComment({ ...commentValue, commentValue: value });
     };
 
     return (
-        <Form onSubmit={addToTicket}>
+        <Form>
             {/* <FloatingLabel label="comments"> */}
             <Form.Control
                 as="textarea"
@@ -49,11 +46,10 @@ const AddComment = ({ props, tryComment, refetch }) => {
                 // value={comment}
             />
             <Button
-                type="submit"
-                onClick={() => {
-                    refetch();
+                onClick={
+                    (event) => addToTicket(event)
                     // tryComment(true);
-                }}
+                }
             >
                 Click to add a Comment
             </Button>
