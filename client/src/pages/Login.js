@@ -4,6 +4,14 @@ import { Navbar, Nav, Container, Modal, Tab, Button } from "react-bootstrap";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
 
+const styles = {
+  button: {
+    marginTop: 15,
+    marginRight: 15,
+    marginBottom: 15,
+  },
+};
+
 const Login = () => {
   const [showPage, setShowPage] = useState("login");
 
@@ -18,8 +26,8 @@ const Login = () => {
   return (
     <>
       <Container>
-        <Button onClick={() => handlePageChange("login")}>Login</Button>
-        <Button onClick={() => handlePageChange("signup")}>Signup</Button>
+        <Button onClick={() => handlePageChange("login")} style={styles.button}>Login</Button>
+        <Button onClick={() => handlePageChange("signup")} style={styles.button}>Signup</Button>
         {renderPage()}
       </Container>
     </>

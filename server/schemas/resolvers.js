@@ -16,14 +16,23 @@ const resolvers = {
         user: async (parent, { profileId }) => {
             return User.findOne({ _id: profileId }).populate('tickets');
         },
+        tickets: async (parent, {ticketCreator, privilege}) => {
+            console.log(ticketCreator, privilege)
+            if (privilege === 'admin') {
+                return Ticket.find({})
+            }
+            else {
+                return Ticket.find({ticketCreator: ticketCreator})
+            }
+        },
         getSingleTicket: async (parent, { ticketId }) => {
             return Ticket.findOne({ _id: ticketId });
             // return { ticket };
         },
     },
     Mutation: {
-        addUser: async (parent, { username, email, password }) => {
-            const user = await User.create({ username, email, password });
+        addUser: async (parent, { username, email, password, privilege }) => {
+            const user = await User.create({ username, email, password, privilege });
             const token = signToken(user);
             return { token, user };
         },
