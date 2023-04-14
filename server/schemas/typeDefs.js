@@ -30,13 +30,13 @@ const typeDefs = gql`
     type Query {
         me: User
         user(profileId: ID!): User
-        tickets(username: String): [Ticket]
+        tickets(ticketCreator: String!, privilege: String): [Ticket]
         getSingleTicket(ticketId: String): Ticket
         #if we get to employee portion we can add something to query all users
     }
     type Mutation {
         #need to add one for adding comments
-        addUser(username: String!, email: String!, password: String!): Auth
+        addUser(username: String!, email: String!, password: String!, privilege: String!): Auth
         login(email: String!, password: String!): Auth
 
         addTicket(

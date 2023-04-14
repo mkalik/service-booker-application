@@ -21,6 +21,10 @@ const userSchema = new Schema({
         required: true,
         minlength: 5,
     },
+    privilege: {
+        type: String,
+        required: true
+    },
     tickets: [
         {
             type: Schema.Types.ObjectId,
