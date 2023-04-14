@@ -30,7 +30,7 @@ A handy application that makes requesting of services a breeze. Simply create a 
 Going to need to sign up with an email, username, and password. After all  of this you will be brought to a page where you can create a ticket. Simply click add a ticket, enter the info on  the ticket and submit it.
 # <a name='3'></a>
 ## 3.Credits:
-[mkalik](https://github.com/mkalik) | [jaugsbu2](https://github.com/jaugsbu2) | [will198735] (https://github.com/will198735)
+[mkalik](https://github.com/mkalik) | [jaugsbu2](https://github.com/jaugsbu2) | [will198735](https://github.com/will198735)
 # <a name='4'></a>
 ## 4.License:
 https://opensource.org/licenses/MIT
