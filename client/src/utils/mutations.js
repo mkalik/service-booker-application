@@ -1,8 +1,18 @@
 import { gql } from '@apollo/client';
 
 export const ADD_USER = gql`
-    mutation addUser($username: String!, $email: String!, $password: String!) {
-        addUser(username: $username, email: $email, password: $password) {
+    mutation addUser(
+        $username: String!
+        $email: String!
+        $password: String!
+        $privilege: String!
+    ) {
+        addUser(
+            username: $username
+            email: $email
+            password: $password
+            privilege: $privilege
+        ) {
             token
             user {
                 _id
@@ -63,6 +73,14 @@ export const ADD_COMMENT = gql`
                 username
                 commentText
             }
+        }
+    }
+`;
+
+export const TICKET_STATUS = gql`
+    mutation TicketToggle($ticketId: String!, $status: Boolean!) {
+        ticketToggle(ticketId: $ticketId, status: $status) {
+            ticketStatus
         }
     }
 `;

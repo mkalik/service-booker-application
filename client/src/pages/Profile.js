@@ -9,29 +9,51 @@ import {
 } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { Navigate, useParams } from "react-router-dom";
-import { QUERY_USER, QUERY_ME } from "../utils/queries";
+import { QUERY_USER, QUERY_ME, QUERY_TICKETS } from "../utils/queries";
 import AddTicketForm from "../components/AddTicketForm";
 import UserTicketList from "../components/UserTicketList";
 import Auth from "../utils/auth";
+import { useEffect } from "react";
+import { visitWithTypeInfo } from "graphql";
+
+const styles = {
+  theme: {
+    paddingBottom: 80,
+  },
+  button: {
+    marginBottom: 20,
+  },
+  header: {
+    color: "white",
+    marginTop: 20,
+    textAlign: 'right',
+  }
+};
 
 const Profile = () => {
   const { profileId } = useParams();
   const [showModal, setShowModal] = useState(false);
-  console.log(profileId)
-  const {loading, data} = useQuery(profileId ? QUERY_USER : QUERY_ME, {
-    variables: {profileId: profileId}
-  })
-
-  // console.log(user.data.username)
-  console.log(data)
-
-  const profile = data?.me || data?.profile || {};
-
-  // console.log(profile.tickets)
-
-  if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
-    return <Navigate to="/me" />;
+  const [ticketsArray, setTicketsArray] = useState([]);
+  console.log(profileId);
+  function toggleShow() {
+    setShowModal(!showModal);
   }
+  const profile = Auth.getProfile().data;
+
+  const {loading, data} = useQuery(QUERY_TICKETS, {
+    variables: {ticketCreator: profile._id, privilege: profile.privilege}
+  })
+  console.log(data);
+
+  // useEffect(() => {
+  //   setTicketsArray(data);
+  // }, [data]);
+console.log(ticketsArray.tickets)
+  console.log(profile.tickets)
+
+  // if (Auth.loggedIn()) {
+  //   return <Navigate to="/me" />;
+  // }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -46,24 +68,18 @@ const Profile = () => {
     );
   }
 
-
   return (
     <>
-      <Container>
-        <Button onClick={() => setShowModal(true)}>
-          Create a Service Request
-        </Button>
-          <UserTicketList
-          tickets={profile.tickets}
-          />
+      <Container style={styles.theme}>
+        <Container style={styles.header}>
+        <p>Welcome {profile.username}</p>
+        </Container>
+        <AddTicketForm 
+        showModal={showModal}
+        toggleShow={toggleShow}
+        />
+        <UserTicketList tickets={data.tickets} />
       </Container>
-
-      <Modal size="lg" show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <AddTicketForm handleModalClose={() => setShowModal(false)} />
-        </Modal.Body>
-      </Modal>
     </>
   );
 };

@@ -33,11 +33,23 @@ export const QUERY_ME = gql`
         }
     }
 `;
+export const QUERY_TICKETS = gql`
+    query tickets($ticketCreator: String!, $privilege: String) {
+        tickets(ticketCreator: $ticketCreator, privilege: $privilege) {
+            _id
+            ticketTitle
+            ticketContent
+            ticketBudget
+            ticketStatus
+        }
+    }
+`;
 
 //need a query for just comments - this is reather essential for the comments components
 export const GET_COMMENTS = gql`
     query getSingleTicket($ticketId: String!) {
         getSingleTicket(ticketId: $ticketId) {
+            ticketStatus
             ticketComments {
                 _id
                 commentText
