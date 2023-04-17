@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
-
+import { useUserContext } from "../utils/UserContext";
 import Auth from "../utils/auth";
 import { LOGIN_USER } from "../utils/mutations";
 import { useNavigate } from "react-router";
 
 const LoginForm = () => {
+  const {user, changeUserState} =useUserContext();
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -42,6 +43,8 @@ const LoginForm = () => {
       email: "",
       password: "",
     });
+    
+    changeUserState(true)
     navigate("/me");
   };
 

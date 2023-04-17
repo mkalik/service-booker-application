@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
-
+import { useUserContext } from "../utils/UserContext";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import { useNavigate } from "react-router";
 import Auth from "../utils/auth";
 
 const SignupForm = () => {
+  const {user, changeUserState} =useUserContext();
   const [userFormData, setUserFormData] = useState({
     username: "",
     email: "",
@@ -48,6 +49,7 @@ const SignupForm = () => {
       password: "",
       privilege: "user",
     });
+    changeUserState(true)
     navigate("/me");
   };
 

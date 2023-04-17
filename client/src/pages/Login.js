@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab, Button } from "react-bootstrap";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
+import { useUserContext } from "../utils/UserContext";
 
 const styles = {
   button: {
