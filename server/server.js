@@ -20,14 +20,26 @@ app.use(express.json());
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('build'));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join('build', 'index.html'));
-    });
+    app.get('/*', function(req, res) {
+        res.sendFile(path.join(__dirname, 'path/to/your/index.html'), function(err) {
+          if (err) {
+            res.status(500).send(err)
+          }
+        })
+      })
   }
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'path/to/your/index.html'), function(err) {
+      if (err) {
+        res.status(500).send(err)
+      }
+    })
+  })
+
 
 const startApolloServer = async (typeDefs, resolvers) => {
     await server.start();
