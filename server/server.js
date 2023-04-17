@@ -21,7 +21,7 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('build'));
     app.get('/*', function(req, res) {
-        res.sendFile(path.join(__dirname, 'path/to/your/index.html'), function(err) {
+        res.sendFile(path.join(__dirname, '../client/build/index.html'), function(err) {
           if (err) {
             res.status(500).send(err)
           }
@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 //     res.sendFile(path.join(__dirname, '../client/build/index.html'));
 // });
 app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'path/to/your/index.html'), function(err) {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'), function(err) {
       if (err) {
         res.status(500).send(err)
       }
