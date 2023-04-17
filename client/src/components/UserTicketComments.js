@@ -5,49 +5,51 @@ import { ADD_COMMENT } from '../utils/mutations';
 // import { GET_COMMENT } from '../utils/queries';
 import Auth from '../utils/auth';
 
-const AddComment = ({ props, tryComment }) => {
+const AddComment = ({ props, tryComment, refetch }) => {
     const username = Auth.getProfile().data.username;
     const [addComment, { error }] = useMutation(ADD_COMMENT);
-    const [comment, setComment] = useState({
-        commentValue: '',
-    });
-    // console.log(username);
-    console.log(`props : ${props}`);
+    const textComment = { commentValue: '' };
+    const [{ commentValue }, setComment] = useState(textComment);
 
-    console.log(tryComment);
+    const clearComment = () => {
+        setComment({ ...textComment });
+    };
     const addToTicket = (event) => {
         event.preventDefault();
-        // console.log(comment);
         addComment({
             variables: {
                 ticketId: props,
                 username,
-                commentText: comment.commentValue,
+                commentText: commentValue,
             },
-        });
-        setComment({ commentValue: '' });
+        })
+            .then(() => {
+                clearComment();
+            })
+            .then(() => refetch());
     };
     const handleComment = (event) => {
-        const value = event.target.value;
-        setComment({ ...comment, commentValue: value });
+        event.preventDefault();
+        const { value } = event.target;
+        setComment({ ...commentValue, commentValue: value });
     };
 
     return (
-        <Form onSubmit={addToTicket}>
+        <Form>
             {/* <FloatingLabel label="comments"> */}
             <Form.Control
                 as="textarea"
                 placeholder="leave a comment"
                 style={{ height: '30vh' }}
                 onChange={handleComment}
-                value={comment.CommentValue}
+                value={commentValue}
                 // value={comment}
             />
             <Button
-                type="submit"
-                onClick={() => {
-                    tryComment(true);
-                }}
+                onClick={
+                    (event) => addToTicket(event)
+                    // tryComment(true);
+                }
             >
                 Click to add a Comment
             </Button>

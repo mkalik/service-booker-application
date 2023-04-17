@@ -36,7 +36,13 @@ const typeDefs = gql`
     }
     type Mutation {
         #need to add one for adding comments
-        addUser(username: String!, email: String!, password: String!, privilege: String!): Auth
+        addUser(
+            username: String!
+            email: String!
+            password: String!
+            privilege: String!
+        ): Auth
+        ticketToggle(ticketId: String!, status: Boolean!): Ticket
         login(email: String!, password: String!): Auth
 
         addTicket(
