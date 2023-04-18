@@ -1,11 +1,24 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../assets/favicon.png"
-
+import React, { useState, useEffect } from "react";
 import Auth from "../utils/auth";
+import { useUserContext } from "../utils/UserContext";
+
 
 const Header = () => {
+
+  const {user, changeUserState} =useUserContext();
+  console.log(user)
+  console.log(Auth.getToken())
+  console.log(Auth.loggedIn())
+if (Auth.loggedIn()) {
+  changeUserState(true)
+}
+
+  console.log(user)
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -25,7 +38,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
-              {Auth.loggedIn() ? (
+              {user ? (
                 <>
                   <Nav.Link as={Link} to="/me">
                     My Profile
