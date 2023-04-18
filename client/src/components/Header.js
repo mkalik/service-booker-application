@@ -1,4 +1,5 @@
 
+
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../assets/favicon.png"
@@ -56,6 +57,7 @@ if (Auth.loggedIn()) {
       </Navbar>
     </>
   );
+
 };
 
 export default Header;
