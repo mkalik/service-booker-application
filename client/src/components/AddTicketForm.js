@@ -70,7 +70,7 @@ const AddTicketForm = (props) => {
   return (
     <>
       <Button onClick={props.toggleShow} style={styles.button}>
-        Create a Service Request
+        Create a Repair Request
       </Button>
 
       <Modal size="lg" show={props.showModal} onHide={props.toggleShow}>
@@ -86,18 +86,18 @@ const AddTicketForm = (props) => {
               Something went wrong with your login credentials!
             </Alert>
             <Form.Group>
-              <Form.Label htmlFor="ticketTitle">Title</Form.Label>
+              <Form.Label htmlFor="ticketTitle">Repair Request Title</Form.Label>
               <Form.Control
                 type="text"
                 size="lg"
-                placeholder="Input a title for this ticket"
+                placeholder="Input a breif title for your repair request ticket"
                 name="ticketTitle"
                 onChange={handleInputChange}
                 value={ticketFormData.ticketTitle}
                 required
               />
               <Form.Control.Feedback type="invalid">
-                A title is required!
+                A title is required for us to understand what repair you would like!
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
@@ -106,21 +106,21 @@ const AddTicketForm = (props) => {
               </Form.Label>
               <Form.Control
                 as="textarea"
-                placeholder="Input the problem with your equipment"
+                placeholder="Input a breif description of your repair request"
                 name="ticketContent"
                 onChange={handleInputChange}
                 value={ticketFormData.ticketContent}
                 required
               />
               <Form.Control.Feedback type="invalid">
-                A description of the problem is required!
+                A description of the problem is required for us to better assist you!
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
               <Form.Label htmlFor="ticketBudget">Budget</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Input your budget for this repair"
+                placeholder="Please provide your budget for this repair"
                 name="ticketBudget"
                 onChange={handleInputChange}
                 value={ticketFormData.ticketBudget}

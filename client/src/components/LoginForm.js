@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
 
-import Auth from '../utils/auth';
-import { LOGIN_USER } from '../utils/mutations';
-import { useNavigate } from 'react-router';
+import React, { useState } from "react";
+import { Form, Button, Alert } from "react-bootstrap";
+import { useMutation } from "@apollo/client";
+import { useUserContext } from "../utils/UserContext";
+import Auth from "../utils/auth";
+import { LOGIN_USER } from "../utils/mutations";
+import { useNavigate } from "react-router";
 
 const LoginForm = () => {
-    const [userFormData, setUserFormData] = useState({
-        email: '',
-        password: '',
-    });
-    const [validated] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
-    const [loginUser, { error, data }] = useMutation(LOGIN_USER);
-    const navigate = useNavigate();
+  const {user, changeUserState} =useUserContext();
+  const [userFormData, setUserFormData] = useState({ email: "", password: "" });
+  const [validated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [login, { error, data }] = useMutation(LOGIN_USER);
+  const navigate = useNavigate();
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -36,18 +36,22 @@ const LoginForm = () => {
             });
             console.log(data);
 
-            Auth.login(data.login.token);
-        } catch (e) {
-            console.error(e);
-            setShowAlert(true);
-        }
-        setUserFormData({
-            username: '',
-            email: '',
-            password: '',
-        });
-        navigate('/me');
-    };
+
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+      setShowAlert(true);
+    }
+    setUserFormData({
+      username: "",
+      email: "",
+      password: "",
+    });
+    
+    changeUserState(true)
+    navigate("/me");
+  };
+
 
     return (
         <>
