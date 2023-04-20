@@ -21,7 +21,7 @@ const ticketSchema = new Schema({
         // required: true,
     },
     ticketStatus: {
-        type: Boolean,
+        type: Number,
         // required: true,
     },
     ticketCreator: {
@@ -34,10 +34,9 @@ const ticketSchema = new Schema({
             ticketId: {
                 type: String,
             },
-            // isElevated:{
-            //     type: Boolean,
-            //     required:true
-            // },
+            isElevated: {
+                type: Boolean,
+            },
             username: {
                 type: String,
             },

@@ -54,6 +54,7 @@ export const GET_COMMENTS = gql`
                 _id
                 commentText
                 username
+                isElevated
             }
         }
     }

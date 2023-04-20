@@ -41,7 +41,9 @@ const resolvers = {
             return { token, user };
         },
         login: async (parent, { email, password }) => {
-            const user = await User.findOne({ email });
+            const user = await User.findOne({
+                $or: [{ username: email }, { email }],
+            });
             if (!user) {
                 throw new AuthenticationError('No user was found');
             }
@@ -101,7 +103,7 @@ const resolvers = {
         ticketToggle: async (parent, { ticketId, status }, context) => {
             const newTicket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
-                { ticketStatus: !status }
+                { ticketStatus: status }
             );
             return newTicket;
         },

@@ -61,24 +61,27 @@ export const ADD_COMMENT = gql`
         $ticketId: String!
         $username: String!
         $commentText: String!
+        $isElevated: Boolean!
     ) {
         addComment(
             ticketId: $ticketId
             username: $username
             commentText: $commentText
+            isElevated: $isElevated
         ) {
             ticketComments {
                 _id
                 ticketId
                 username
                 commentText
+                isElevated
             }
         }
     }
 `;
 
 export const TICKET_STATUS = gql`
-    mutation TicketToggle($ticketId: String!, $status: Boolean!) {
+    mutation TicketToggle($ticketId: String!, $status: Int!) {
         ticketToggle(ticketId: $ticketId, status: $status) {
             ticketStatus
         }

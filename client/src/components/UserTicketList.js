@@ -53,7 +53,7 @@ function UserTicketList(tickets) {
                             <Card
                                 key={ticket._id}
                                 style={{ width: '18rem' }}
-                                bg={ticket.ticketStatus ? '' : 'secondary'}
+                                bg={ticket.ticketStatus == 1 ? '' : 'secondary'}
                             >
                                 <Card.Header key={ticket.ticketTitle}>
                                     {ticket.ticketTitle}

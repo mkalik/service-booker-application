@@ -12,7 +12,7 @@ const typeDefs = gql`
         ticketTitle: String
         ticketContent: String
         ticketBudget: String
-        ticketStatus: Boolean
+        ticketStatus: Int
         ticketCreator: String
         ticketComments: [Comment]
     }
@@ -21,6 +21,7 @@ const typeDefs = gql`
         ticketId: String!
         username: String
         commentText: String!
+        isElevated: Boolean!
     }
     type Auth {
         token: ID!
@@ -42,7 +43,7 @@ const typeDefs = gql`
             password: String!
             privilege: String!
         ): Auth
-        ticketToggle(ticketId: String!, status: Boolean!): Ticket
+        ticketToggle(ticketId: String!, status: Int!): Ticket
         login(email: String!, password: String!): Auth
 
         addTicket(
@@ -58,6 +59,7 @@ const typeDefs = gql`
             ticketId: String!
             username: String!
             commentText: String!
+            isElevated: Boolean!
         ): Ticket
     }
 `;
