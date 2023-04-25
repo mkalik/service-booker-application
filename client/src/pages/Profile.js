@@ -38,6 +38,7 @@ const Profile = () => {
     function toggleShow() {
         if (showModal == false) refetch();
         setShowModal(!showModal);
+        refetch();
     }
     const profile = Auth.getProfile().data;
 
@@ -48,7 +49,9 @@ const Profile = () => {
 
     console.log(ticketsArray.tickets);
     console.log(profile.tickets);
-
+    useEffect(() => {
+        !loading ? setTicketsArray([...data.tickets]) : console.log(loading);
+    }, [loading]);
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -68,8 +71,15 @@ const Profile = () => {
                 <Container style={styles.header}>
                     <p>Welcome {profile.username}</p>
                 </Container>
-                <AddTicketForm showModal={showModal} toggleShow={toggleShow} />
-                <UserTicketList tickets={data.tickets} />
+                <AddTicketForm
+                    showModal={showModal}
+                    toggleShow={toggleShow}
+                    refetch={refetch}
+                />
+                <UserTicketList
+                    tickets={/*data.tickets*/ ticketsArray}
+                    reget={refetch}
+                />
             </Container>
         </>
     );

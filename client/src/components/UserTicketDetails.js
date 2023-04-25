@@ -12,8 +12,8 @@ const TicketDetails = ({ props }) => {
     const [showDetails, setShowDetails] = useState(false);
     // const hideDetails = () => {
     //     setShowDetails(false);
+
     // };
-    console.log('userTicketDetails', props);
     console.log('ticketStatus', props.ticketStatus);
     // const [comments, setComments] = useState([]);
     const [stat, setStatus] = useState();
@@ -25,7 +25,7 @@ const TicketDetails = ({ props }) => {
         },
     });
     const changeStatus = (status) => {
-        console.log('status', status);
+        console.log('change status', status);
 
         setStatus(Number(status));
         ticketStatus({
@@ -60,11 +60,26 @@ const TicketDetails = ({ props }) => {
                 return;
         }
     };
-    const show = role == 'admin' ? false : true;
+
+    const show = role == 'admin' ? true : false;
     if (loading) {
         return '...loading';
     }
     console.log(data);
+    const dropdownAdmin = (
+        <Dropdown.Menu>
+            <Dropdown.Item eventKey="1">Open</Dropdown.Item>
+            <Dropdown.Item eventKey="2">In Progress</Dropdown.Item>
+            <Dropdown.Item eventKey="3">Finished</Dropdown.Item>
+            <Dropdown.Item eventKey="4">Closed</Dropdown.Item>
+        </Dropdown.Menu>
+    );
+    const dropdownUser = (
+        <Dropdown.Menu>
+            <Dropdown.Item eventKey="1">Open</Dropdown.Item>
+            <Dropdown.Item eventKey="4">Closed</Dropdown.Item>
+        </Dropdown.Menu>
+    );
 
     return (
         <div>
@@ -95,32 +110,22 @@ const TicketDetails = ({ props }) => {
                 <TicketCommentList
                     props={data.getSingleTicket.ticketComments}
                 />
-                <AddComment props={props._id} refetch={refetch} />
-                <Dropdown onSelect={(event) => changeStatus(event)}>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        ChangeStatus
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                        <Dropdown.Item eventKey="1">Open</Dropdown.Item>
-                        <Dropdown.Item disabled={show} eventKey="2">
-                            In Progress
-                        </Dropdown.Item>
-                        <Dropdown.Item disabled={show} eventKey="3">
-                            Finished
-                        </Dropdown.Item>
-                        <Dropdown.Item eventKey="4">Closed</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-                {/* <Button */}
-                {/*     onClick={() => */}
-                {/*         changeStatus(data.getSingleTicket.ticketStatus) */}
-                {/*     } */}
-                {/* > */}
-                {/*     Click to toggle status */}
-                {/* </Button> */}
             </Modal.Body>
-            <Modal.Footer></Modal.Footer>
+            <AddComment props={props._id} refetch={refetch} />
+            <Dropdown
+                style={{
+                    marginTop: '10px',
+                    display: 'inline',
+                    float: 'left',
+                }}
+                onSelect={(event) => changeStatus(event)}
+            >
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    ChangeStatus
+                </Dropdown.Toggle>
+                {show ? dropdownAdmin : dropdownUser}
+            </Dropdown>
+            {/* <Modal.Footer></Modal.Footer> */}
         </div>
     );
 };

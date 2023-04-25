@@ -109,7 +109,8 @@ const resolvers = {
         ticketToggle: async (parent, { ticketId, status }, context) => {
             const newTicket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
-                { ticketStatus: status }
+                { ticketStatus: status },
+                { new: true }
             );
             return newTicket;
         },

@@ -20,6 +20,7 @@ const styles = {
 };
 
 const AddTicketForm = (props) => {
+    console.log(props);
     const [ticketFormData, setTicketFormData] = useState({
         ticketTitle: '',
         ticketContent: '',
@@ -58,10 +59,7 @@ const AddTicketForm = (props) => {
             });
             console.log(data);
             if (data) {
-                // navigate('/')
-                alert('Your ticket has been created!');
-                props.toggleShow();
-                refreshPage();
+                props.refetch();
             }
         } catch (e) {
             console.error(e);
@@ -144,6 +142,7 @@ const AddTicketForm = (props) => {
                                     ticketFormData.ticketContent
                                 )
                             }
+                            onClick={props.toggleShow}
                             type="submit"
                             variant="success"
                         >

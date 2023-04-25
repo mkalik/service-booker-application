@@ -1,13 +1,14 @@
 import { CardColumns, Container, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TicketDetails from './UserTicketDetails.js';
 function UserTicketList(tickets) {
     // const styles = {
     //   "secondary"
     // }
     // something is weird here
+    console.log(tickets);
     const [data, setData] = useState({
         _id: null,
         ticketTitle: null,
@@ -15,6 +16,7 @@ function UserTicketList(tickets) {
         ticketBudget: null,
         ticketStatus: null,
     });
+    const [alltickets, setTickets] = useState([]);
     const [showDetails, setShowDetails] = useState(false);
     const openDetails = async (event) => {
         console.log(event.target);
@@ -37,7 +39,9 @@ function UserTicketList(tickets) {
         console.log(data);
         // .then(() =>
     };
-    const hideDetails = () => setShowDetails(false);
+    const hideDetails = () => {
+        setShowDetails(false);
+    };
 
     if (!tickets.tickets.length) {
         return (
@@ -87,7 +91,12 @@ function UserTicketList(tickets) {
                 </CardColumns>
             </Container>
             <>
-                <Modal show={showDetails} onHide={hideDetails}>
+                <Modal
+                    show={showDetails}
+                    onHide={() => {
+                        hideDetails();
+                    }}
+                >
                     <Modal.Body>
                         <TicketDetails props={data} />
                     </Modal.Body>

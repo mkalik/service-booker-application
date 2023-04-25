@@ -41,18 +41,27 @@ const AddComment = ({ props, refetch }) => {
     };
 
     return (
-        <Form>
-            <Form.Control
-                as="textarea"
-                placeholder="leave a comment"
-                style={{ height: '30vh' }}
-                onChange={handleComment}
-                value={commentValue}
-            />
-            <Button onClick={(event) => addToTicket(event)}>
+        <>
+            <Form>
+                <Form.Control
+                    as="textarea"
+                    placeholder="leave a comment"
+                    style={{ height: '30vh' }}
+                    onChange={handleComment}
+                    value={commentValue}
+                />
+            </Form>
+            <Button
+                style={{
+                    marginTop: '10px',
+                    float: 'right',
+                    justifySelf: 'start',
+                }}
+                onClick={(event) => addToTicket(event)}
+            >
                 Click to add a Comment
             </Button>
-        </Form>
+        </>
     );
 };
 
