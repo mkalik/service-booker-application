@@ -1,8 +1,12 @@
 import { GET_COMMENTS } from '../utils/queries';
 import { useQuery } from '@apollo/client';
-import { useState } from 'react';
-const TicketCommentList = (props) => {
-    const [comments, setComments] = useState(props.props);
+import { useState, useEffect } from 'react';
+const TicketCommentList = ({ props }) => {
+    console.log(props);
+    const [comments, setComments] = useState([]);
+    useEffect(() => {
+        setComments([...props]);
+    }, [props]);
     console.log('ticketCommentlist', comments);
     if (comments.length == 0) {
         return <div>No comments yet</div>;

@@ -14,7 +14,8 @@ const TicketDetails = ({ props }) => {
     //     setShowDetails(false);
     // };
     console.log('userTicketDetails', props);
-    const [comments, setComments] = useState([]);
+    console.log('ticketStatus', props.ticketStatus);
+    // const [comments, setComments] = useState([]);
     const [stat, setStatus] = useState();
     const role = Auth.getProfile().data.privilege;
     const [ticketStatus] = useMutation(TICKET_STATUS);
@@ -24,15 +25,15 @@ const TicketDetails = ({ props }) => {
         },
     });
     const changeStatus = (status) => {
-        console.log(status);
+        console.log('status', status);
+
         setStatus(Number(status));
-        // let status = event.target.eventKey;
         ticketStatus({
             variables: {
                 ticketId: props._id,
                 status: Number(status),
             },
-        }).then(refetch());
+        }).then(() => refetch());
     };
     // console.log(loading);
     // console.log(data);
@@ -44,7 +45,8 @@ const TicketDetails = ({ props }) => {
     };
     console.log('stat', stat);
 
-    const statusReturn = function (status) {
+    const statusReturn = function () {
+        const status = stat == undefined ? props.ticketStatus : stat;
         switch (status) {
             case 1:
                 return 'open';
@@ -77,8 +79,16 @@ const TicketDetails = ({ props }) => {
                     <li>Budget: {props.ticketBudget}</li>
                     <li>
                         Status:
-                        <p style={statusColors[props.ticketStatus]}>
-                            {statusReturn(props.ticketStatus)}
+                        <p
+                            style={
+                                statusColors[
+                                    stat == undefined
+                                        ? props.ticketStatus
+                                        : stat
+                                ]
+                            }
+                        >
+                            {statusReturn(stat)}
                         </p>
                     </li>
                 </ul>
