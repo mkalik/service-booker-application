@@ -8,8 +8,8 @@ export default function UserProvider({ children }) {
     const [user, setUser] = useState(false);
     // const [role, setRole] = useState(Auth.getProfile().data.privilege);
 
-    const changeUserState = (user) => {
-        setUser(user);
+    const changeUserState = (log) => {
+        setUser(log);
     };
 
     return (

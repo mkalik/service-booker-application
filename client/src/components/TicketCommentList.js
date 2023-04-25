@@ -1,12 +1,16 @@
 import { GET_COMMENTS } from '../utils/queries';
 import { useQuery } from '@apollo/client';
-
-const TicketCommentList = ({ props }) => {
-    const admin = { color: '#daa520' };
+import { useState } from 'react';
+const TicketCommentList = (props) => {
+    const [comments, setComments] = useState(props.props);
+    console.log('ticketCommentlist', comments);
+    if (comments.length == 0) {
+        return <div>No comments yet</div>;
+    }
 
     return (
         <>
-            {props.map((comment, index) => {
+            {comments.map((comment, index) => {
                 const elevated = comment.isElevated
                     ? { color: '#daa520', fontSize: '15px' }
                     : { color: '#d1cdc7', fontSize: '15px' };

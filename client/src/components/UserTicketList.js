@@ -7,8 +7,16 @@ function UserTicketList(tickets) {
     // const styles = {
     //   "secondary"
     // }
+    // something is weird here
+    const [data, setData] = useState({
+        _id: null,
+        ticketTitle: null,
+        ticketContent: null,
+        ticketBudget: null,
+        ticketStatus: null,
+    });
     const [showDetails, setShowDetails] = useState(false);
-    const openDetails = (event) => {
+    const openDetails = async (event) => {
         console.log(event.target);
         const index = event.target.dataset.index;
         console.log(index);
@@ -17,24 +25,19 @@ function UserTicketList(tickets) {
             tickets.tickets[index]
         );
         const { _id, ticketTitle, ticketContent, ticketBudget, ticketStatus } =
-            tickets.tickets[index];
-        setData({
+            await tickets.tickets[index];
+        console.log(_id, ticketTitle);
+        await setData({
             _id,
             ticketTitle,
             ticketContent,
             ticketBudget,
             ticketStatus,
         });
-        setShowDetails(true);
+        console.log(data);
+        // .then(() =>
     };
     const hideDetails = () => setShowDetails(false);
-    const [data, setData] = useState({
-        _id: null,
-        ticketTitle: null,
-        ticketContent: null,
-        ticketBudget: null,
-        ticketStatus: null,
-    });
 
     if (!tickets.tickets.length) {
         return (
@@ -69,7 +72,11 @@ function UserTicketList(tickets) {
                                     <Button
                                         data-index={index}
                                         variant="primary"
-                                        onClick={openDetails}
+                                        onClick={(e) =>
+                                            openDetails(e).then(
+                                                setShowDetails(true)
+                                            )
+                                        }
                                     >
                                         View Details
                                     </Button>

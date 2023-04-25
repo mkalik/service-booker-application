@@ -13,6 +13,9 @@ const TicketDetails = ({ props }) => {
     // const hideDetails = () => {
     //     setShowDetails(false);
     // };
+    console.log('userTicketDetails', props);
+    const [comments, setComments] = useState([]);
+    const [stat, setStatus] = useState();
     const role = Auth.getProfile().data.privilege;
     const [ticketStatus] = useMutation(TICKET_STATUS);
     const { loading, error, data, refetch } = useQuery(GET_COMMENTS, {
@@ -22,6 +25,7 @@ const TicketDetails = ({ props }) => {
     });
     const changeStatus = (status) => {
         console.log(status);
+        setStatus(Number(status));
         // let status = event.target.eventKey;
         ticketStatus({
             variables: {
@@ -32,17 +36,14 @@ const TicketDetails = ({ props }) => {
     };
     // console.log(loading);
     // console.log(data);
-    if (loading) {
-        return <h2>loading</h2>;
-    }
     const statusColors = {
         1: { color: '#32cd32' },
         2: { color: '#ffff66' },
         3: { color: '#00ffff' },
         4: { color: '#ff0000' },
     };
-    const status = data.getSingleTicket.ticketStatus;
-    console.log(status);
+    console.log('stat', stat);
+
     const statusReturn = function (status) {
         switch (status) {
             case 1:
@@ -58,6 +59,10 @@ const TicketDetails = ({ props }) => {
         }
     };
     const show = role == 'admin' ? false : true;
+    if (loading) {
+        return '...loading';
+    }
+    console.log(data);
 
     return (
         <div>
@@ -72,8 +77,8 @@ const TicketDetails = ({ props }) => {
                     <li>Budget: {props.ticketBudget}</li>
                     <li>
                         Status:
-                        <p style={statusColors[status]}>
-                            {statusReturn(status)}
+                        <p style={statusColors[props.ticketStatus]}>
+                            {statusReturn(props.ticketStatus)}
                         </p>
                     </li>
                 </ul>

@@ -7,7 +7,7 @@ import { useUserContext } from '../utils/UserContext';
 import Auth from '../utils/auth';
 const AddComment = ({ props, refetch }) => {
     const username = Auth.getProfile().data.username;
-    const elevated = Auth.getProfile().data.privilege == 'admin' ? true : false;
+
     const [addComment, { error }] = useMutation(ADD_COMMENT);
 
     const textComment = { commentValue: '' };
@@ -18,6 +18,9 @@ const AddComment = ({ props, refetch }) => {
     };
     const addToTicket = (event) => {
         event.preventDefault();
+        const elevated =
+            Auth.getProfile().data.privilege == 'admin' ? true : false;
+        console.log('elevated', elevated);
         addComment({
             variables: {
                 ticketId: props,
@@ -29,7 +32,7 @@ const AddComment = ({ props, refetch }) => {
             .then(() => {
                 clearComment();
             })
-            .then(() => refetch());
+            .then(refetch());
     };
     const handleComment = (event) => {
         event.preventDefault();

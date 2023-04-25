@@ -25,7 +25,7 @@ const resolvers = {
             }
         },
         getSingleTicket: async (parent, { ticketId }) => {
-            return Ticket.findOne({ _id: ticketId });
+            return Ticket.findOne({ _id: ticketId }).populate('comments');
             // return { ticket };
         },
     },
@@ -87,18 +87,24 @@ const resolvers = {
         },
         addComment: async (
             parent,
-            { ticketId, commentText, username },
+            { ticketId, commentText, username, isElevated },
             context
         ) => {
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 {
                     $addToSet: {
-                        ticketComments: { ticketId, username, commentText },
+                        ticketComments: {
+                            ticketId,
+                            username,
+                            commentText,
+                            isElevated,
+                        },
                     },
                 }
             );
-            return ticket;
+            console.log(ticket);
+            return { ticket };
         },
         ticketToggle: async (parent, { ticketId, status }, context) => {
             const newTicket = await Ticket.findOneAndUpdate(
